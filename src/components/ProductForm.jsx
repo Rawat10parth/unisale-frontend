@@ -120,7 +120,7 @@ export default function ProductForm({ setShowForm, userId }) {
         });
         
         const response = await axios.post(
-          "https://unisale-backend-d2jm.vercel.app/api/upload-multiple", 
+          "https://unisale-backend.vercel.app/api/upload-multiple", 
           formData, 
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -144,7 +144,7 @@ export default function ProductForm({ setShowForm, userId }) {
         formData.append("image", images[0]);
         
         const response = await axios.post(
-          "https://unisale-backend-d2jm.vercel.app/api/upload", 
+          "https://unisale-backend.vercel.app/api/upload", 
           formData, 
           {
             headers: { "Content-Type": "multipart/form-data" },

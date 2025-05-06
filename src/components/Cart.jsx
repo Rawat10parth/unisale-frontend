@@ -21,7 +21,7 @@ const Cart = () => {
       // Get fresh token
       const idToken = await user.getIdToken(true);
       
-      const response = await fetch('https://unisale-backend-d2jm.vercel.app/api/cart', {
+      const response = await fetch('https://unisale-backend.vercel.app/api/cart', {
         headers: {
           'Authorization': `Bearer ${idToken}`,
           'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ const Cart = () => {
       }
 
       const idToken = await user.getIdToken();
-      const response = await fetch('https://unisale-backend-d2jm.vercel.app/api/cart/remove', {
+      const response = await fetch('https://unisale-backend.vercel.app/api/cart/remove', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

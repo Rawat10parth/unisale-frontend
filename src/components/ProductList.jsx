@@ -41,7 +41,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const res = await fetch(`https://unisale-backend-d2jm.vercel.app/get-wishlist?user_id=${userId}`);
+        const res = await fetch(`https://unisale-backend.vercel.app/get-wishlist?user_id=${userId}`);
         const data = await res.json();
         const wishlistImageUrls = data.map((item) => item.image_url);
         setWishlistItems(wishlistImageUrls);
@@ -76,7 +76,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
       return;
     }
     try {
-      const response = await fetch("https://unisale-backend-d2jm.vercel.app/toggle-wishlist", {
+      const response = await fetch("https://unisale-backend.vercel.app/toggle-wishlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ users_id: userId, image_url }),
@@ -99,7 +99,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
     const confirm = window.confirm("Are you sure you want to delete this product?");
     if (!confirm) return;
     try {
-      const res = await fetch(`https://unisale-backend-d2jm.vercel.app/api/products/${productId}`, {
+      const res = await fetch(`https://unisale-backend.vercel.app/api/products/${productId}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -119,7 +119,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`https://unisale-backend-d2jm.vercel.app/api/products/${editProduct.id}`, {
+      const res = await fetch(`https://unisale-backend.vercel.app/api/products/${editProduct.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editProduct),
