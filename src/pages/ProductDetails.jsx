@@ -22,7 +22,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/product/${productId}`);
+        const response = await fetch(`https://unisale-backend-d2jm.vercel.app/product/${productId}`);
         
         if (!response.ok) {
           throw new Error("Product not found");
@@ -62,7 +62,7 @@ const ProductDetail = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
             try {
-                const response = await fetch(`http://127.0.0.1:5000/get-profile?email=${user.email}`);
+                const response = await fetch(`https://unisale-backend-d2jm.vercel.app/get-profile?email=${user.email}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch user profile');
                 }
@@ -88,7 +88,7 @@ const ProductDetail = () => {
 
       try {
         const response = await fetch(
-          `http://127.0.0.1:5000/api/wishlist/check/${productId}`,
+          `https://unisale-backend-d2jm.vercel.app/api/wishlist/check/${productId}`,
           {
             method: 'POST',
             headers: {
@@ -120,7 +120,7 @@ const ProductDetail = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/wishlist/toggle", {
+      const response = await fetch("https://unisale-backend-d2jm.vercel.app/api/wishlist/toggle", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -154,7 +154,7 @@ const ProductDetail = () => {
 
     try {
       const userId = parseInt(currentUser.id); // Ensure numeric ID
-      const response = await fetch("http://127.0.0.1:5000/api/cart/add", {
+      const response = await fetch("https://unisale-backend-d2jm.vercel.app/api/cart/add", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
