@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import DragDropUploader from "./DragDropUploader";
 import Toast from './Toast';
+import API_URL from '../config';
 
 const DEPRECIATION_RATES = {
   "Books & Study Material": 0.5, // 50% per year
@@ -120,7 +121,7 @@ export default function ProductForm({ setShowForm, userId }) {
         });
         
         const response = await axios.post(
-          "https://unisale-backend.vercel.app/api/upload-multiple", 
+          "${API_URL}/api/upload-multiple", 
           formData, 
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -144,7 +145,7 @@ export default function ProductForm({ setShowForm, userId }) {
         formData.append("image", images[0]);
         
         const response = await axios.post(
-          "https://unisale-backend.vercel.app/api/upload", 
+          "${API_URL}/api/upload", 
           formData, 
           {
             headers: { "Content-Type": "multipart/form-data" },

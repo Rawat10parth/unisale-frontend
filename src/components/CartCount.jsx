@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
+import API_URL from '../config';
 
 const CartCount = () => {
     const [count, setCount] = useState(0);
@@ -12,7 +13,7 @@ const CartCount = () => {
                 if (!user) return;
 
                 // First get the user's numeric ID from the profile
-                const profileResponse = await fetch(`https://unisale-backend.vercel.app/get-profile?email=${user.email}`);
+                const profileResponse = await fetch(`${API_URL}/get-profile?email=${user.email}`);
                 if (!profileResponse.ok) {
                     throw new Error('Failed to fetch user profile');
                 }
@@ -20,7 +21,7 @@ const CartCount = () => {
                 const userId = userProfile.id;
 
                 // Then fetch cart items using the numeric user ID
-                const response = await fetch(`https://unisale-backend.vercel.app/api/cart/${userId}`, {
+                const response = await fetch(`${API_URL}/api/cart/${userId}`, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

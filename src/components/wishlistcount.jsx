@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import API_URL from '../config';
 
 const WishlistCount = ({ userId }) => {
   const [count, setCount] = useState(0);
@@ -7,7 +8,7 @@ const WishlistCount = ({ userId }) => {
   useEffect(() => {
     const fetchWishlistCount = async () => {
       try {
-        const res = await fetch(`https://unisale-backend.vercel.app?user_id=${userId}`);
+        const res = await fetch(`${API_URL}?user_id=${userId}`);
         const data = await res.json();
         setCount(data.length);
       } catch (error) {
