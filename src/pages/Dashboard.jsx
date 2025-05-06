@@ -75,12 +75,14 @@ const Dashboard = () => {
   }
 
   // Filter products based on search term, category, and condition ("state")
-  let filteredProducts = products.filter((product) =>
-    (selectedCategory === "All" || product.category === selectedCategory) &&
-    (selectedCondition === "" || product.state === selectedCondition) &&
-    (product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  let filteredProducts = Array.isArray(products) 
+  ? products.filter((product) =>
+      (selectedCategory === "All" || product.category === selectedCategory) &&
+      (selectedCondition === "" || product.state === selectedCondition) &&
+      (product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       product.description?.toLowerCase().includes(searchTerm.toLowerCase()))
+    )
+  : [];
 
   // Sort the filtered products
   filteredProducts = [...filteredProducts].sort((a, b) => {
