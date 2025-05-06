@@ -19,7 +19,7 @@ const Chat = ({ buyerId, sellerId, productId }) => {
       }
 
       try {
-        const response = await fetch(`http://127.0.0.1:5000/get-profile?email=${auth.currentUser.email}`);
+        const response = await fetch(`https://unisale-backend-d2jm.vercel.app/get-profile?email=${auth.currentUser.email}`);
         if (!response.ok) throw new Error('Failed to fetch user profile');
         const userData = await response.json();
         setCurrentUser(userData);

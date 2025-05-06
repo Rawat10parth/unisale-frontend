@@ -7,7 +7,7 @@ const WishlistCount = ({ userId }) => {
   useEffect(() => {
     const fetchWishlistCount = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:5000/get-wishlist?user_id=${userId}`);
+        const res = await fetch(`https://unisale-backend-d2jm.vercel.app?user_id=${userId}`);
         const data = await res.json();
         setCount(data.length);
       } catch (error) {
