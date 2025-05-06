@@ -1,7 +1,7 @@
 // api.js - Place this in a 'utils' or 'services' folder
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000';
+import { API_BASE_URL } from './config';
 
 // Create an axios instance with default config
 const api = axios.create({
