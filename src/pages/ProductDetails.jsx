@@ -6,6 +6,7 @@ import ProductImageCarousel from "../components/ProductImageCarousel";
 import Chat from '../components/Chat';
 import '../styles/SharedBackground.css';
 import '../styles/ProductDetails.css';
+import API_URL from '../config';
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -22,7 +23,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`https://unisale-backend.vercel.app/product/${productId}`);
+        const response = await fetch(`${API_URL}/product/${productId}`);
         
         if (!response.ok) {
           throw new Error("Product not found");
@@ -62,7 +63,7 @@ const ProductDetail = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
             try {
-                const response = await fetch(`https://unisale-backend.vercel.app/get-profile?email=${user.email}`);
+                const response = await fetch(`${API_URL}/get-profile?email=${user.email}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch user profile');
                 }
@@ -88,7 +89,7 @@ const ProductDetail = () => {
 
       try {
         const response = await fetch(
-          `https://unisale-backend.vercel.app/api/wishlist/check/${productId}`,
+          `${API_URL}/api/wishlist/check/${productId}`,
           {
             method: 'POST',
             headers: {
@@ -120,7 +121,7 @@ const ProductDetail = () => {
     }
 
     try {
-      const response = await fetch("https://unisale-backend.vercel.app/api/wishlist/toggle", {
+      const response = await fetch("${API_URL}/api/wishlist/toggle", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -154,7 +155,7 @@ const ProductDetail = () => {
 
     try {
       const userId = parseInt(currentUser.id); // Ensure numeric ID
-      const response = await fetch("https://unisale-backend.vercel.app/api/cart/add", {
+      const response = await fetch("${API_URL}/api/cart/add", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

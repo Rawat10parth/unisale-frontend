@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import '../styles/SharedBackground.css';
+import API_URL from '../config';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Checkout = () => {
 
         // Get ID token for authentication
         const idToken = await user.getIdToken(true);
-        const response = await fetch('https://unisale-backend.vercel.app/get-profile', {
+        const response = await fetch('${API_URL}/get-profile', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ const Checkout = () => {
         return;
       }
 
-      const response = await fetch('https://unisale-backend.vercel.app/api/checkout', {
+      const response = await fetch('${API_URL}/api/checkout', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

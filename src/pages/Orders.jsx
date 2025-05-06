@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import '../styles/SharedBackground.css';
+import API_URL from '../config';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -21,7 +22,7 @@ const Orders = () => {
 
         console.log('Fetching orders...'); // Debug log
         const idToken = await user.getIdToken(true);
-        const response = await fetch('https://unisale-backend.vercel.app/api/orders', {
+        const response = await fetch('${API_URL}/api/orders', {
           headers: {
             'Authorization': `Bearer ${idToken}`
           }

@@ -8,6 +8,8 @@ import Footer from "../components/Footer";
 import WishlistCount from "../components/wishlistcount";
 import CartCount from "../components/CartCount";
 import "../styles/SharedBackground.css";
+import API_URL from "../config";
+
 
 const Dashboard = () => {
   const auth = getAuth();
@@ -20,11 +22,13 @@ const Dashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedCondition, setSelectedCondition] = useState("");
   const [sortOrder, setSortOrder] = useState("newest"); // "newest", "low-to-high", "high-to-low"
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
 
   // Function to fetch user profile from your backend
   const fetchUserProfile = async (email) => {
     try {
-      const response = await fetch(`https://unisale-backend.vercel.app/get-profile?email=${email}`);
+      const response = await fetch(`${API_URL}/get-profile?email=${email}`);
       const data = await response.json();
       if (response.ok) return data;
       throw new Error(data.error || "Failed to fetch profile");
@@ -37,12 +41,29 @@ const Dashboard = () => {
   // Fetch products from your backend
   const fetchProducts = async () => {
     try {
-      const response = await fetch("https://unisale-backend.vercel.app/get-products");
+      setLoading(true);
+      setError(null);
+      
+      const response = await fetch(`${API_URL}/get-products`);
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}`);
+      }
+      
       const data = await response.json();
       console.log("📦 Products from API:", data);
-      setProducts(data);
+      
+      // Validate data is an array
+      if (Array.isArray(data)) {
+        setProducts(data);
+      } else {
+        throw new Error("API returned invalid data format");
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
+      setError("Failed to load products. Please try again later.");
+      setProducts([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -327,8 +348,24 @@ const Dashboard = () => {
 
       {/* Product List */}
       <div className="max-w-7xl mx-auto px-6 pb-12">
-        <ProductList products={filteredProducts} userId={user.id} fetchProducts={fetchProducts} />
-      </div>
+  {loading ? (
+    <div className="flex justify-center py-12">
+      <div className="elegant-spinner"></div>
+    </div>
+  ) : error ? (
+    <div className="glass-effect rounded-xl p-8 text-center">
+      <p className="text-red-400 text-lg mb-4">{error}</p>
+      <button 
+        onClick={fetchProducts}
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+      >
+        Try Again
+      </button>
+    </div>
+  ) : (
+    <ProductList products={filteredProducts} userId={user.id} fetchProducts={fetchProducts} />
+  )}
+</div>
 
       <Footer />
     </div>

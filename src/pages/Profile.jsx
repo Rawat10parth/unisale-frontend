@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import API_URL from '../config';
 
 const Profile = () => {
   const auth = getAuth();
@@ -18,7 +19,7 @@ const Profile = () => {
       return;
     }
 
-    axios.get(`https://unisale-backend.vercel.app/get-profile?email=${auth.currentUser.email}`)
+    axios.get(`${API_URL}/get-profile?email=${auth.currentUser.email}`)
       .then(response => {
         console.log("Profile Data:", response.data);  // Debugging
         setUser(response.data);
@@ -36,7 +37,7 @@ const Profile = () => {
     }
   
     try {
-      const response = await axios.post("https://unisale-backend.vercel.app/update-phone-number", {
+      const response = await axios.post("${API_URL}/update-phone-number", {
         user_id: user.id,
         phone_number: phoneNumber,
       });
@@ -60,7 +61,7 @@ const Profile = () => {
     }
 
     try {
-      await axios.post("https://unisale-backend.vercel.app/update-name", {
+      await axios.post("${API_URL}/update-name", {
         user_id: user.id,
         name,
       });
@@ -79,7 +80,7 @@ const Profile = () => {
     formData.append("image", file);
 
     try {
-      const response = await axios.post("https://unisale-backend.vercel.app/update-profile-picture", formData, {
+      const response = await axios.post("${API_URL}/update-profile-picture", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setImageUrl(response.data.image_url);
