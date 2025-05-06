@@ -19,7 +19,7 @@ const Messages = () => {
     const fetchUserProfile = async () => {
       if (auth.currentUser) {
         try {
-          const response = await fetch(`https://unisale-backend-d2jm.vercel.app/get-profile?email=${auth.currentUser.email}`);
+          const response = await fetch(`https://unisale-backend.vercel.app/get-profile?email=${auth.currentUser.email}`);
           if (!response.ok) throw new Error('Failed to fetch user profile');
           const userData = await response.json();
           setCurrentUser(userData);
@@ -64,7 +64,7 @@ const Messages = () => {
       const productsData = {};
       for (const productId of productIds) {
         try {
-          const response = await fetch(`https://unisale-backend-d2jm.vercel.app/product/${productId}`);
+          const response = await fetch(`https://unisale-backend.vercel.app/product/${productId}`);
           const data = await response.json();
           productsData[productId] = data.product;
         } catch (error) {

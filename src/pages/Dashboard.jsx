@@ -24,7 +24,7 @@ const Dashboard = () => {
   // Function to fetch user profile from your backend
   const fetchUserProfile = async (email) => {
     try {
-      const response = await fetch(`https://unisale-backend-d2jm.vercel.app/get-profile?email=${email}`);
+      const response = await fetch(`https://unisale-backend.vercel.app/get-profile?email=${email}`);
       const data = await response.json();
       if (response.ok) return data;
       throw new Error(data.error || "Failed to fetch profile");
@@ -37,7 +37,7 @@ const Dashboard = () => {
   // Fetch products from your backend
   const fetchProducts = async () => {
     try {
-      const response = await fetch("https://unisale-backend-d2jm.vercel.app/get-products");
+      const response = await fetch("https://unisale-backend.vercel.app/get-products");
       const data = await response.json();
       console.log("📦 Products from API:", data);
       setProducts(data);

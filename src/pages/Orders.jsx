@@ -21,7 +21,7 @@ const Orders = () => {
 
         console.log('Fetching orders...'); // Debug log
         const idToken = await user.getIdToken(true);
-        const response = await fetch('https://unisale-backend-d2jm.vercel.app/api/orders', {
+        const response = await fetch('https://unisale-backend.vercel.app/api/orders', {
           headers: {
             'Authorization': `Bearer ${idToken}`
           }
