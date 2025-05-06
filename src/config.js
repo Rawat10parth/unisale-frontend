@@ -1,3 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// Base URL for API calls
+const API_URL = "unisale-backend-ex5dut2hw-rawat10parths-projects.vercel.app";
 
 export default API_URL;
