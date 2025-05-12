@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ZoomableImage from "./ZoomableImage";
-import API_URL from "../config";
 
 const ProductList = ({ products, userId, fetchProducts }) => {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const res = await fetch(`${API_URL}/get-wishlist?user_id=${userId}`);
+        const res = await fetch(`http://127.0.0.1:5000/get-wishlist?user_id=${userId}`);
         const data = await res.json();
         const wishlistImageUrls = data.map((item) => item.image_url);
         setWishlistItems(wishlistImageUrls);
@@ -53,17 +52,21 @@ const ProductList = ({ products, userId, fetchProducts }) => {
     if (userId) fetchWishlist();
   }, [userId]);
 
-  // Infinite Scroll: Reset displayed products whenever products change
+  // Update the useEffect to show new products when they change
   useEffect(() => {
+    // Reset displayed products when the products array changes
     setDisplayedProducts(products.slice(0, ITEMS_PER_LOAD));
     setHasMore(products.length > ITEMS_PER_LOAD);
   }, [products]);
 
+  // Update the fetchMoreData function to handle filtered data properly
   const fetchMoreData = () => {
     if (displayedProducts.length >= products.length) {
       setHasMore(false);
       return;
     }
+    
+    // Display next batch of products
     setTimeout(() => {
       setDisplayedProducts(products.slice(0, displayedProducts.length + ITEMS_PER_LOAD));
     }, 500);
@@ -77,7 +80,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
       return;
     }
     try {
-      const response = await fetch('${API_URL}/toggle-wishlist', {
+      const response = await fetch(`http://127.0.0.1:5000/toggle-wishlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ users_id: userId, image_url }),
@@ -100,7 +103,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
     const confirm = window.confirm("Are you sure you want to delete this product?");
     if (!confirm) return;
     try {
-      const res = await fetch(`${API_URL}/api/products/${productId}`, {
+      const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -120,7 +123,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${API_URL}/api/products/${editProduct.id}`, {
+      const res = await fetch(`http://localhost:5000/api/products/${editProduct.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editProduct),
@@ -410,7 +413,7 @@ const ProductList = ({ products, userId, fetchProducts }) => {
 
 ProductList.propTypes = {
   products: PropTypes.array.isRequired,
-  userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  userId: PropTypes.string.isRequired,
   fetchProducts: PropTypes.func.isRequired,
 };
 

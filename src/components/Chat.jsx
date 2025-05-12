@@ -3,14 +3,13 @@ import { collection, addDoc, onSnapshot, query, orderBy, setDoc, doc, getDoc } f
 import PropTypes from 'prop-types';
 import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
-import API_URL from '../config';
+
 
 const Chat = ({ buyerId, sellerId, productId }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-  
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -21,7 +20,7 @@ const Chat = ({ buyerId, sellerId, productId }) => {
       }
 
       try {
-        const response = await fetch(`${API_URL}/get-profile?email=${auth.currentUser.email}`);
+        const response = await fetch(`http://127.0.0.1:5000/get-profile?email=${auth.currentUser.email}`);
         if (!response.ok) throw new Error('Failed to fetch user profile');
         const userData = await response.json();
         setCurrentUser(userData);
