@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import '../styles/SharedBackground.css';
-import API_URL from '../config';
+
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -21,7 +21,7 @@ const Cart = () => {
       }
 
       // Get the user profile to get the numeric user ID
-      const profileResponse = await fetch(`${API_URL}/get-profile?email=${user.email}`);
+      const profileResponse = await fetch(`http://127.0.0.1:5000/get-profile?email=${user.email}`);
       if (!profileResponse.ok) {
         throw new Error('Failed to fetch user profile');
       }
@@ -29,7 +29,7 @@ const Cart = () => {
       const userId = parseInt(userProfile.id); // Ensure numeric ID
 
       // Fetch cart items with numeric user ID
-      const response = await fetch(`${API_URL}/api/cart/${userId}`, {
+      const response = await fetch(`http://127.0.0.1:5000/api/cart/${userId}`, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -62,14 +62,14 @@ const Cart = () => {
       }
 
       // Get user profile to get numeric user ID
-      const profileResponse = await fetch(`${API_URL}/get-profile?email=${user.email}`);
+      const profileResponse = await fetch(`http://127.0.0.1:5000/get-profile?email=${user.email}`);
       if (!profileResponse.ok) {
         throw new Error('Failed to fetch user profile');
       }
       const userProfile = await profileResponse.json();
       const userId = userProfile.id;
 
-      const response = await fetch('${API_URL}/api/cart/remove', {
+      const response = await fetch(`http://127.0.0.1:5000/api/cart/remove`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import ZoomableImage from "../components/ZoomableImage";
 import "../styles/SharedBackground.css";
-import API_URL from '../config';
+
 
 const Wishlist = ({ userId }) => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Wishlist = ({ userId }) => {
       
       try {
         console.log(`Fetching wishlist for user ID: ${userId}`);
-        const res = await fetch(`${API_URL}/get-wishlist?user_id=${userId}`);
+        const res = await fetch(`http://127.0.0.1:5000/get-wishlist?user_id=${userId}`);
         
         if (!res.ok) {
           throw new Error(`Failed to fetch wishlist (Status: ${res.status})`);
@@ -52,7 +52,7 @@ const Wishlist = ({ userId }) => {
 
   const removeFromWishlist = async (image_url) => {
     try {
-      const res = await fetch("${API_URL}/toggle-wishlist", {
+      const res = await fetch(`http://127.0.0.1:5000/toggle-wishlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ users_id: userId, image_url }),

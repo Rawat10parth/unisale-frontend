@@ -6,7 +6,7 @@ import ProductImageCarousel from "../components/ProductImageCarousel";
 import Chat from '../components/Chat';
 import '../styles/SharedBackground.css';
 import '../styles/ProductDetails.css';
-import API_URL from '../config';
+
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -23,7 +23,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`${API_URL}/product/${productId}`);
+        const response = await fetch(`http://127.0.0.1:5000/product/${productId}`);
         
         if (!response.ok) {
           throw new Error("Product not found");
@@ -63,7 +63,7 @@ const ProductDetail = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
             try {
-                const response = await fetch(`${API_URL}/get-profile?email=${user.email}`);
+                const response = await fetch(`http://127.0.0.1:5000/get-profile?email=${user.email}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch user profile');
                 }
@@ -89,7 +89,7 @@ const ProductDetail = () => {
 
       try {
         const response = await fetch(
-          `${API_URL}/api/wishlist/check/${productId}`,
+          `http://127.0.0.1:5000/api/wishlist/check/${productId}`,
           {
             method: 'POST',
             headers: {
@@ -121,7 +121,7 @@ const ProductDetail = () => {
     }
 
     try {
-      const response = await fetch("${API_URL}/api/wishlist/toggle", {
+      const response = await fetch("http://127.0.0.1:5000/api/wishlist/toggle", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -155,7 +155,7 @@ const ProductDetail = () => {
 
     try {
       const userId = parseInt(currentUser.id); // Ensure numeric ID
-      const response = await fetch("${API_URL}/api/cart/add", {
+      const response = await fetch("http://127.0.0.1:5000/api/cart/add", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -239,13 +239,13 @@ const ProductDetail = () => {
 
       {/* New Back Button */}
       <button
-        onClick={() => navigate("/dashboard")}
+        onClick={() => navigate(-1)}
         className="floating-back-button glass-effect text-white px-6 py-3 rounded-xl font-medium hover:bg-white/10 transition-colors duration-300 flex items-center gap-2"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
         </svg>
-        Back to Dashboard
+        Go Back
       </button>
       
       <div className="relative z-10 max-w-6xl mx-auto">
